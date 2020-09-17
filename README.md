@@ -68,7 +68,6 @@ is still under development:
 
 * `strip_token`
 * `pass_claims`
-* `token_types`: only HS algo at the moment.
 
 ## Plugin Users
 
@@ -261,6 +260,26 @@ This greatly simplifies the configuration.
 route /alertmanager* {
   jwt
   respond * "alertmanager" 200
+}
+```
+
+## Using the RS Algorythm
+
+You will need a RSA public key encoded in the PEM format.
+
+### JSON
+
+Replace `token_secret` with `token_rsa_file` and instead of the secret specify the path to your RSA public key.
+
+### Caddyfile
+
+Replace the `static_secret` block with a `rsa_file` block.
+
+```
+rsa_file {
+  token_name access_token
+  token_rsa_file /path/to/your/rsa/file.pem
+  token_issuer 7a50e023-2c6e-4a5e-913e-23ecd0e2b940
 }
 ```
 
